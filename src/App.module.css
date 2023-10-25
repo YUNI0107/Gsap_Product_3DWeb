@@ -1,0 +1,25 @@
+.root {
+  width: 100%;
+}
+
+.above-layout {
+  position: relative;
+  z-index: 100;
+}
+
+.three-scene {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+}
+
+.background-layout {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+}
