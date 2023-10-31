@@ -12,6 +12,7 @@ specifiers:
   eslint-plugin-prettier: ^5.0.0
   eslint-plugin-react-hooks: ^4.6.0
   eslint-plugin-react-refresh: ^0.4.3
+  eventemitter3: ^5.0.1
   prettier: 3.0.3
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -20,6 +21,7 @@ specifiers:
   vite: ^4.4.5
 
 dependencies:
+  eventemitter3: 5.0.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   three: 0.157.0
@@ -1189,6 +1191,10 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /eventemitter3/5.0.1:
+    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
+    dev: false
 
   /execa/5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}

@@ -1,5 +1,5 @@
 import style from './App.module.css'
-import ThreeScene from './scene/ThreeScene'
+import ThreeScene from './layout/ThreeScene'
 
 // layout
 import AboveLayout from './layout/AboveLayout'
