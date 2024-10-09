@@ -10,11 +10,11 @@ function App() {
       <div className="relative z-50">
         <AboveLayout />
       </div>
-      <div className="fixed top-0 left-0 z-20">
+      <div className="fixed left-0 top-0 z-20">
         <Scene />
       </div>
 
-      <div className="fixed z-10 top-0 left-0 w-full h-full bg-black">
+      <div className="fixed left-0 top-0 z-10 h-full w-full bg-black">
         <BackgroundLayout />
       </div>
     </div>
