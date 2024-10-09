@@ -1,5 +1,4 @@
-import style from './App.module.css'
-import ThreeScene from './layout/ThreeScene'
+import Scene from './layout/Scene'
 
 // layout
 import AboveLayout from './layout/AboveLayout'
@@ -7,15 +6,15 @@ import BackgroundLayout from './layout/BackgroundLayout'
 
 function App() {
   return (
-    <div className={style.root}>
-      <div className={style['above-layout']}>
+    <div className="w-full">
+      <div className="relative z-50">
         <AboveLayout />
       </div>
-      <div className={style['three-scene']}>
-        <ThreeScene />
+      <div className="fixed top-0 left-0 z-20">
+        <Scene />
       </div>
 
-      <div className={style['background-layout']}>
+      <div className="fixed z-10 top-0 left-0 w-full h-full bg-black">
         <BackgroundLayout />
       </div>
     </div>
