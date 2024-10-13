@@ -14,6 +14,13 @@
     --color-secondary: #70a1ff;
     --color-text-base: #080808;
     --color-primary-bg: #02004a;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+  }
+
+  p {
+    @apply text-base;
   }
 }
 

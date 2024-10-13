@@ -1,6 +1,6 @@
-import Scene from './layout/Scene'
+import 'remixicon/fonts/remixicon.css'
 
-// layout
+import Scene from './layout/Scene'
 import AboveLayout from './layout/AboveLayout'
 import BackgroundLayout from './layout/BackgroundLayout'
 

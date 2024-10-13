@@ -9,6 +9,7 @@ export default {
       white: '#ffff',
       gray: '#F5F5F5',
       black: '#080808',
+      transparent: 'rgba(0, 0, 0, 0)',
     },
     extend: {
       colors: {
