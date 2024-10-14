@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import NavbarLinks from './components/NavbarLinks'
 import LogoImage from './components/LogoImage'
@@ -25,13 +26,23 @@ function Header() {
         <div className="relative hidden pr-10 md:flex">
           <NavbarLinks />
           {/* Navbar Line */}
-          <div className="absolute bottom-1 right-0 h-[2px] w-[calc(100%+30px)] bg-white">
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            transition={{
+              duration: 0.25,
+              ease: 'easeOut',
+            }}
+            className="absolute bottom-1 right-0 h-[1px] w-[calc(100%+30px)] bg-white"
+          >
             <div className="absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"></div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {isVisible && <MobileNavbar onClose={() => setIsVisible(false)} />}
+      <AnimatePresence>
+        {isVisible && <MobileNavbar onClose={() => setIsVisible(false)} />}
+      </AnimatePresence>
     </div>
   )
 }

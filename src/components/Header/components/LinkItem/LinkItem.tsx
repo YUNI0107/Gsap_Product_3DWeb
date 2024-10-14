@@ -14,7 +14,7 @@ function LinkItem({
 }) {
   return (
     <div
-      className={cn('group cursor-pointer px-5 hover:bg-primary md:px-8', {
+      className={cn('group cursor-pointer px-5 py-1 hover:bg-primary md:px-8', {
         'text-black': lightMode,
         ...(active &&
           (lightMode
