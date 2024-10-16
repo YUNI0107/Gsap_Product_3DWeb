@@ -9,7 +9,7 @@ function Header() {
   const [isVisible, setIsVisible] = useState(false)
 
   return (
-    <div className="flex w-full items-center justify-between px-5 py-5 md:px-0">
+    <div className="fixed z-50 flex w-full items-center justify-between px-5 py-5 md:px-0">
       <div className="md:ml-10">
         <LogoImage className="w-32 md:w-40" />
       </div>

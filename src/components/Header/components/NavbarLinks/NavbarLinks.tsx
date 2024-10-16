@@ -2,13 +2,19 @@ import { motion } from 'framer-motion'
 import LinkItem from '../LinkItem'
 
 const links = [
-  { title: 'LANDING', key: 'landing' },
-  { title: 'ABOUT', key: 'about' },
-  { title: 'INTRODUCTION', key: 'introduction' },
-  { title: 'CONTACT US', key: 'contact' },
+  { title: 'LANDING', key: 'landing', href: 'landing' },
+  { title: 'ABOUT', key: 'about', href: 'about' },
+  { title: 'INTRODUCTION', key: 'introduction', href: 'introduction' },
+  { title: 'CONTACT US', key: 'contact', href: 'contact' },
 ]
 
-function NavbarLinks({ lightMode = false }: { lightMode?: boolean }) {
+function NavbarLinks({
+  lightMode = false,
+  onClick,
+}: {
+  lightMode?: boolean
+  onClick?: () => void
+}) {
   return (
     <>
       {links.map((link, index) => (
@@ -29,6 +35,7 @@ function NavbarLinks({ lightMode = false }: { lightMode?: boolean }) {
             link={link}
             active={false}
             lightMode={lightMode}
+            onClick={onClick}
           />
         </motion.div>
       ))}

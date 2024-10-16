@@ -1,21 +1,14 @@
 import 'remixicon/fonts/remixicon.css'
 
-import Scene from './layout/Scene'
-import AboveLayout from './layout/AboveLayout'
-import BackgroundLayout from './layout/BackgroundLayout'
+import Header from './components/Header'
+import MainLayout from './layout/MainLayout/MainLayout'
 
 function App() {
   return (
     <div className="w-full">
       <div className="relative z-50">
-        <AboveLayout />
-      </div>
-      <div className="fixed left-0 top-0 z-20">
-        <Scene />
-      </div>
-
-      <div className="fixed left-0 top-0 z-10 h-full w-full bg-black">
-        <BackgroundLayout />
+        <Header />
+        <MainLayout />
       </div>
     </div>
   )

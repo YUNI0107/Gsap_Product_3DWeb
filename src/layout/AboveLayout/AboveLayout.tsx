@@ -1,11 +1,5 @@
-import Header from '../../components/Header'
-
 function AboveLayout() {
-  return (
-    <>
-      <Header />
-    </>
-  )
+  return <h1>Hello</h1>
 }
 
 export default AboveLayout

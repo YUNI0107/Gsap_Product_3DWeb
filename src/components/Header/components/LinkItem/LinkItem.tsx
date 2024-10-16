@@ -4,16 +4,20 @@ function LinkItem({
   link,
   active = false,
   lightMode = false,
+  onClick,
 }: {
   link: {
     title: string
     key: string
+    href: string
   }
   active?: boolean
   lightMode?: boolean
+  onClick?: () => void
 }) {
   return (
     <div
+      onClick={onClick}
       className={cn('group cursor-pointer px-5 py-1 hover:bg-primary md:px-8', {
         'text-black': lightMode,
         ...(active &&
@@ -22,7 +26,9 @@ function LinkItem({
             : { 'bg-white text-black': true })),
       })}
     >
-      <p className="font-medium group-hover:text-white">{link.title}</p>
+      <a href={`#${link.href}`}>
+        <p className="font-medium group-hover:text-white">{link.title}</p>
+      </a>
     </div>
   )
 }

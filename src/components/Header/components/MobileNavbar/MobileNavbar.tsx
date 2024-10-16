@@ -29,7 +29,7 @@ function MobileNavbar({ onClose }: { onClose: () => void }) {
 
         <div className="flex h-full w-full flex-col items-center justify-center">
           <div className="mb-4 flex flex-grow flex-col items-center justify-center">
-            <NavbarLinks lightMode={true} />
+            <NavbarLinks lightMode={true} onClick={onClose} />
           </div>
 
           {/* Mobile Bottom */}
