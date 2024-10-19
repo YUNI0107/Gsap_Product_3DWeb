@@ -8,7 +8,7 @@ function BackgroundLayout() {
 
       <section
         id="about"
-        className="relative h-[300vh] overflow-hidden bg-bgPrimary"
+        className="relative -mt-1 h-[300vh] overflow-hidden bg-bgPrimary"
       >
         {/* circle */}
         <div className="w-full origin-top translate-y-[0%] scale-150 pb-[100%]">
