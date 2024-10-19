@@ -15,7 +15,13 @@ export default {
       colors: {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
+        hover: 'var(--color-hover)',
         bgPrimary: 'var(--color-primary-bg)',
+      },
+      dropShadow: {
+        blue: '5px 5px 20px rgba(31, 25, 251, 0.80)',
+        green: '5px 5px 20px rgba(44, 242, 207, 0.80)',
+        pink: '5px 5px 20px rgba(249, 58, 252, 0.80)',
       },
     },
   },

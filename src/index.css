@@ -19,6 +19,7 @@ html {
     --color-secondary: #70a1ff;
     --color-text-base: #080808;
     --color-primary-bg: #02004a;
+    --color-hover: #5a55ff;
 
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -38,11 +39,13 @@ html {
 .theme-pink {
   --color-primary: var(--color-pink);
   --color-secondary: #ffebff;
-  --color-primary-bg: #b400b7;
+  --color-primary-bg: #98169a;
+  --color-hover: #fd80ff;
 }
 
 .theme-green {
   --color-primary: var(--color-green);
   --color-secondary: #d3fff7;
-  --color-primary-bg: #10baba;
+  --color-primary-bg: #228989;
+  --color-hover: #83ffff;
 }

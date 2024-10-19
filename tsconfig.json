@@ -24,7 +24,9 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@constants/*": ["src/constants/*"],
+      "@store/*": ["src/store/*"]
     },
 
     "types": ["vite-plugin-svgr/client"]
