@@ -16,20 +16,23 @@ function LinkItem({
   onClick?: () => void
 }) {
   return (
-    <div
-      onClick={onClick}
-      className={cn('group cursor-pointer px-5 py-1 hover:bg-primary md:px-8', {
-        'text-black': lightMode,
-        ...(active &&
-          (lightMode
-            ? { 'bg-black text-white': true }
-            : { 'bg-white text-black': true })),
-      })}
-    >
-      <a href={`#${link.href}`}>
+    <a href={`#${link.href}`}>
+      <div
+        onClick={onClick}
+        className={cn(
+          'group cursor-pointer px-5 py-1 hover:bg-primary md:px-8',
+          {
+            'text-black': lightMode,
+            ...(active &&
+              (lightMode
+                ? { 'bg-black text-white': true }
+                : { 'bg-white text-black': true })),
+          },
+        )}
+      >
         <p className="font-medium group-hover:text-white">{link.title}</p>
-      </a>
-    </div>
+      </div>
+    </a>
   )
 }
 

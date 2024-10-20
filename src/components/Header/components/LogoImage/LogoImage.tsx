@@ -1,7 +1,7 @@
 import { cn } from '@utils/style'
 
-import logoImageSrc from '@assets/images/logo.png'
-import logoTitleImageSrc from '@assets/images/logo-title.png'
+import logoImageSrc from '@assets/images/logo/logo-top.png'
+import logoTitleImageSrc from '@assets/images/logo/logo-title.png'
 
 function LogoImage({
   className,

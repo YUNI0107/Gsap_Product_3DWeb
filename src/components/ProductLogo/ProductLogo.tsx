@@ -1,4 +1,4 @@
-import ProductLogoImage from '@assets/images/product-logo.svg?react'
+import ProductLogoImage from '@assets/images/logo/product-logo.svg?react'
 import { cn } from '@utils/style'
 
 function ProductLogo({

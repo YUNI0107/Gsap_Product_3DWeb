@@ -1,11 +1,12 @@
 import * as THREE from 'three'
 import Renderer from './Renderer'
-import Camera from './Camera'
+import Camera, { CAMERA_LAYOUT_KEY } from './Camera'
+import { ThemeType } from '@constants/theme'
 
 // utils
 import Sizes from './utils/Sizes'
 import Time from './utils/Time'
-import World from './world/Word'
+import World from './world/World'
 
 class Experience {
   private static instance: Experience
@@ -39,6 +40,15 @@ class Experience {
     this.time.on('time:tick', () => {
       this.update()
     })
+
+    this.world.once('world:model-loaded', (model: THREE.Group) => {
+      this.camera.transformToPivot(CAMERA_LAYOUT_KEY.LANDING)
+      this.camera.instance.lookAt(model.position)
+    })
+  }
+
+  updateTheme(theme: ThemeType) {
+    this.world.updateTheme(theme)
   }
 
   destroy() {

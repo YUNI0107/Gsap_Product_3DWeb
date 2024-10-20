@@ -2,6 +2,18 @@ import * as THREE from 'three'
 import Experience from './Experience'
 import Sizes from './utils/Sizes'
 
+export const CAMERA_LAYOUT_KEY = Object.freeze({
+  LANDING: 'landing',
+  TRANSITION: 'transition',
+})
+type cameraLayoutType =
+  (typeof CAMERA_LAYOUT_KEY)[keyof typeof CAMERA_LAYOUT_KEY]
+
+const pivots: { [key in cameraLayoutType]: THREE.Vector3 } = {
+  [CAMERA_LAYOUT_KEY.LANDING]: new THREE.Vector3(-8, 7.5, 8),
+  [CAMERA_LAYOUT_KEY.TRANSITION]: new THREE.Vector3(0, 0, 5),
+}
+
 class Camera {
   experience: Experience
   canvas?: HTMLCanvasElement
@@ -16,7 +28,7 @@ class Camera {
     this.sizes = this.experience.sizes
 
     this.instance = new THREE.PerspectiveCamera(
-      75,
+      35,
       this.sizes.width / this.sizes.height,
       0.1,
       100,
@@ -24,6 +36,10 @@ class Camera {
 
     this.instance.position.set(0, 0, 5)
     this.scene.add(this.instance)
+  }
+
+  transformToPivot(key: cameraLayoutType) {
+    this.instance.position.copy(pivots[key])
   }
 
   resize() {
