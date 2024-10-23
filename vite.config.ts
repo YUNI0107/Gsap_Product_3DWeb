@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import svgr from 'vite-plugin-svgr'
 import mkcert from 'vite-plugin-mkcert'
+import glsl from 'vite-plugin-glsl'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
   plugins: [
     react(),
     mkcert(),
+    glsl(),
     svgr({
       include: '**/*.svg?react',
     }),
@@ -26,5 +28,5 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store'),
     },
   },
-  assetsInclude: ['**/*.glb'],
+  assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.glsl'],
 })

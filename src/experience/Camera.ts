@@ -36,6 +36,11 @@ class Camera {
 
     this.instance.position.set(0, 0, 5)
     this.scene.add(this.instance)
+
+    this.experience.once('world:model-loaded', (model: THREE.Group) => {
+      this.transformToPivot(CAMERA_LAYOUT_KEY.LANDING)
+      this.instance.lookAt(model.position)
+    })
   }
 
   transformToPivot(key: cameraLayoutType) {

@@ -10,7 +10,8 @@ function MainLayout() {
     <>
       {/* section: landing & about (with canvas) */}
       <div className="min-w-screen relative h-full">
-        <div className="absolute left-0 top-0 z-30 w-full px-5">
+        {/*  pointer-events-none only on landing section */}
+        <div className="pointer-events-none absolute left-0 top-0 z-30 w-full px-5">
           <LandingSection />
           <AboveSection />
         </div>

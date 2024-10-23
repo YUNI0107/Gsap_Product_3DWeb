@@ -1,6 +1,8 @@
 import * as THREE from 'three'
+import EventEmitter from 'eventemitter3'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import Camera from './Camera'
 import Renderer from './Renderer'
-import Camera, { CAMERA_LAYOUT_KEY } from './Camera'
 import { ThemeType } from '@constants/theme'
 
 // utils
@@ -8,7 +10,7 @@ import Sizes from './utils/Sizes'
 import Time from './utils/Time'
 import World from './world/World'
 
-class Experience {
+class Experience extends EventEmitter {
   private static instance: Experience
   canvas?: HTMLCanvasElement
   scene: THREE.Scene
@@ -22,6 +24,7 @@ class Experience {
     if (Experience.instance) {
       return Experience.instance
     }
+    super()
     Experience.instance = this
 
     this.canvas = canvas
@@ -41,10 +44,7 @@ class Experience {
       this.update()
     })
 
-    this.world.once('world:model-loaded', (model: THREE.Group) => {
-      this.camera.transformToPivot(CAMERA_LAYOUT_KEY.LANDING)
-      this.camera.instance.lookAt(model.position)
-    })
+    // new OrbitControls(this.camera.instance, this.renderer.instance.domElement)
   }
 
   updateTheme(theme: ThemeType) {

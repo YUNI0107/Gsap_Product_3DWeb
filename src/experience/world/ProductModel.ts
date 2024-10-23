@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import computerModelUrl from '@assets/models/gaming-pc.glb?url'
 import { THEME_TYPE, ThemeType } from '@constants/theme'
+import Experience from '../Experience'
 
 const themeColorMap = {
   [THEME_TYPE.BLUE]: new THREE.Color(0x0000ff),
@@ -10,12 +11,25 @@ const themeColorMap = {
 }
 
 class ProductModel {
+  experience: Experience
+  scene: THREE.Scene
+
   model: null | THREE.Group
   lightObject: null | THREE.Object3D
 
   constructor() {
+    this.experience = new Experience()
+    this.scene = this.experience.scene
+
     this.model = null
     this.lightObject = null
+
+    this.loadModel()
+      .then((model) => {
+        this.scene.add(model)
+        this.experience.emit('world:model-loaded', model)
+      })
+      .catch((error) => console.error('Computer loadModel load failed', error))
   }
 
   changeColor(theme: ThemeType) {
@@ -29,8 +43,6 @@ class ProductModel {
       this.lightObject.material.emissive.copy(themeColorMap[theme])
       this.lightObject.material.needsUpdate = true
     }
-
-    console.log(this.lightObject)
   }
 
   loadModel() {

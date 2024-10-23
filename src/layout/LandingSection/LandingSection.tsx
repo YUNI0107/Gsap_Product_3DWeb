@@ -52,7 +52,7 @@ function LandingSection() {
             />
           </motion.div>
 
-          <div className="flex items-center justify-center md:min-w-[700px]">
+          <div className="pointer-events-auto flex items-center justify-center md:min-w-[700px]">
             <button
               className="text-primary transition-all hover:scale-110 hover:text-hover"
               onClick={() => handleUpdateTheme('prev')}
