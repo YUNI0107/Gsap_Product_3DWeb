@@ -3,16 +3,30 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import computerModelUrl from '@assets/models/gaming-pc.glb?url'
 import { THEME_TYPE, ThemeType } from '@constants/theme'
 import Experience from '../Experience'
+import Renderer from '../Renderer'
 
 const themeColorMap = {
-  [THEME_TYPE.BLUE]: new THREE.Color(0x0000ff),
-  [THEME_TYPE.GREEN]: new THREE.Color(0x31f1f1),
-  [THEME_TYPE.PINK]: new THREE.Color(0xf93afc),
+  [THEME_TYPE.BLUE]: {
+    emissive: [0, 0.1, 1],
+    color: [0.1, 0.1, 0],
+    emissiveIntensity: 1,
+  },
+  [THEME_TYPE.GREEN]: {
+    emissive: [0.2, 0.8, 0.8],
+    color: [0, 0, 0],
+    emissiveIntensity: 0.8,
+  },
+  [THEME_TYPE.PINK]: {
+    emissive: [0.9, 0.2, 0.9],
+    color: [0, 0, 0],
+    emissiveIntensity: 1,
+  },
 }
 
 class ProductModel {
   experience: Experience
   scene: THREE.Scene
+  renderer: Renderer
 
   model: null | THREE.Group
   lightObject: null | THREE.Object3D
@@ -20,6 +34,7 @@ class ProductModel {
   constructor() {
     this.experience = new Experience()
     this.scene = this.experience.scene
+    this.renderer = this.experience.renderer
 
     this.model = null
     this.lightObject = null
@@ -27,6 +42,7 @@ class ProductModel {
     this.loadModel()
       .then((model) => {
         this.scene.add(model)
+        this.changeColor(THEME_TYPE.BLUE)
         this.experience.emit('world:model-loaded', model)
       })
       .catch((error) => console.error('Computer loadModel load failed', error))
@@ -40,7 +56,10 @@ class ProductModel {
       this.lightObject instanceof THREE.Mesh &&
       this.lightObject.material
     ) {
-      this.lightObject.material.emissive.copy(themeColorMap[theme])
+      this.lightObject.material.color.set(...themeColorMap[theme].color)
+      this.lightObject.material.emissive.set(...themeColorMap[theme].emissive)
+      this.lightObject.material.emissiveIntensity =
+        themeColorMap[theme].emissiveIntensity
       this.lightObject.material.needsUpdate = true
     }
   }
@@ -62,12 +81,8 @@ class ProductModel {
           // Reset base color
           this.lightObject =
             this.model.getObjectByName('Nightshark_RGB_0') || null
-          if (
-            this.lightObject &&
-            this.lightObject instanceof THREE.Mesh &&
-            this.lightObject.material
-          ) {
-            this.lightObject.material.color.set(0, 0, 0)
+          if (this.lightObject) {
+            this.renderer.handleBloomSelection(this.lightObject)
           }
 
           resolve(this.model)
