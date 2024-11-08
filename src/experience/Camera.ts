@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from './Experience'
 import Sizes from './utils/Sizes'
+import { RAY_MARCH_LAYER_ID } from './world/BubblePlane'
 
 export const CAMERA_LAYOUT_KEY = Object.freeze({
   LANDING: 'landing',
@@ -19,6 +20,7 @@ class Camera {
   canvas?: HTMLCanvasElement
   sizes: Sizes
   instance: THREE.PerspectiveCamera
+  overlayCamera: THREE.PerspectiveCamera
   scene: THREE.Scene
 
   constructor() {
@@ -41,6 +43,10 @@ class Camera {
       this.transformToPivot(CAMERA_LAYOUT_KEY.LANDING)
       this.instance.lookAt(model.position)
     })
+
+    this.overlayCamera = this.instance.clone()
+    this.overlayCamera.layers.disable(0) // Default layer
+    this.overlayCamera.layers.enable(RAY_MARCH_LAYER_ID)
   }
 
   transformToPivot(key: cameraLayoutType) {
@@ -50,9 +56,14 @@ class Camera {
   resize() {
     this.instance.aspect = this.sizes.width / this.sizes.height
     this.instance.updateProjectionMatrix()
+    this.overlayCamera.aspect = this.sizes.width / this.sizes.height
+    this.overlayCamera.updateProjectionMatrix()
   }
 
-  update() {}
+  update() {
+    this.overlayCamera.position.copy(this.instance.position)
+    this.overlayCamera.rotation.copy(this.instance.rotation)
+  }
 }
 
 export default Camera

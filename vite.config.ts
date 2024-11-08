@@ -8,9 +8,9 @@ import glsl from 'vite-plugin-glsl'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    https: true, // 啟用 HTTPS
-    host: 'localhost', // 設定 hostname
-    port: 8080, // 設定端口號
+    https: true,
+    host: 'localhost',
+    port: 8080,
   },
   plugins: [
     react(),
@@ -28,5 +28,5 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store'),
     },
   },
-  assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.glsl'],
+  assetsInclude: ['**/*.glb', '**/*.hdr'],
 })

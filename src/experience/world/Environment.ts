@@ -15,15 +15,6 @@ class Environment {
     this.scene = this.experience.scene
     this.loadEnvironmentMap()
     this.setupLight()
-
-    // TODO: Remove ball for debug
-    const ball = new THREE.Mesh(
-      new THREE.SphereGeometry(),
-      new THREE.MeshStandardMaterial(),
-    )
-
-    ball.position.set(0, 2, 2)
-    this.scene.add(ball)
   }
 
   loadEnvironmentMap() {

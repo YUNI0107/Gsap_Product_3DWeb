@@ -1,14 +1,8 @@
 import * as THREE from 'three'
-import {
-  SelectiveBloomEffect,
-  EffectComposer,
-  EffectPass,
-  RenderPass,
-  BlendFunction,
-} from 'postprocessing'
 import Experience from './Experience'
 import Sizes from './utils/Sizes'
 import Camera from './Camera'
+import { RAY_MARCH_LAYER_ID } from './world/BubblePlane'
 
 class Renderer {
   experience: Experience
@@ -17,8 +11,7 @@ class Renderer {
   instance: THREE.WebGLRenderer
   scene: THREE.Scene
   camera: Camera
-  composer: EffectComposer
-  bloom: SelectiveBloomEffect
+  active: boolean
 
   constructor() {
     this.experience = new Experience()
@@ -31,35 +24,18 @@ class Renderer {
       antialias: true,
       alpha: true,
     })
+    this.active = false
     this.setDefaultSetting()
-    this.composer = this.setBloomEffect()
+
+    this.experience.once('world:model-loaded', () => (this.active = true))
   }
 
   setDefaultSetting() {
     this.instance.shadowMap.enabled = true
     this.instance.shadowMap.type = THREE.PCFSoftShadowMap
+    this.instance.autoClear = false
     this.instance.setSize(this.sizes.width, this.sizes.height)
     this.instance.setPixelRatio(this.sizes.pixelRatio)
-  }
-
-  setBloomEffect() {
-    const composer = new EffectComposer(this.instance)
-    this.bloom = new SelectiveBloomEffect(this.scene, this.camera.instance, {
-      blendFunction: BlendFunction.ADD,
-      intensity: 3,
-      luminanceThreshold: 0.1,
-      luminanceSmoothing: 0,
-    })
-
-    composer.addPass(new RenderPass(this.scene, this.camera.instance))
-    composer.addPass(new EffectPass(this.camera.instance, this.bloom))
-
-    return composer
-  }
-
-  handleBloomSelection(selectedObject: THREE.Object3D) {
-    const selection = this.bloom.selection
-    selection.toggle(selectedObject)
   }
 
   resize() {
@@ -68,7 +44,11 @@ class Renderer {
   }
 
   update() {
-    this.composer.render()
+    if (!this.active) return
+
+    this.camera.overlayCamera.layers.set(RAY_MARCH_LAYER_ID)
+    this.instance.render(this.scene, this.camera.overlayCamera)
+    this.instance.render(this.scene, this.camera.instance)
   }
 }
 
