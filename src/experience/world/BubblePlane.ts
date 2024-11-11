@@ -7,17 +7,17 @@ import { THEME_TYPE, ThemeType } from '@constants/theme'
 export const RAY_MARCH_LAYER_ID = 1
 const BUBBLE_COLOR_MAP = {
   [THEME_TYPE.BLUE]: {
-    bubbleColor: new THREE.Color(0x5b81ff),
+    bubbleColor: new THREE.Color(0x4772ff),
     lightColor: new THREE.Color(0xfcf9de),
     backgroundColor: new THREE.Color(0x02007f),
   },
   [THEME_TYPE.GREEN]: {
-    bubbleColor: new THREE.Color(0x7fefef),
+    bubbleColor: new THREE.Color(0x45e8e8),
     lightColor: new THREE.Color(0xdef9f0),
     backgroundColor: new THREE.Color(0x199e9e),
   },
   [THEME_TYPE.PINK]: {
-    bubbleColor: new THREE.Color(0xfc82ff),
+    bubbleColor: new THREE.Color(0xf75dfc),
     lightColor: new THREE.Color(0xfcf9de),
     backgroundColor: new THREE.Color(0x98169a),
   },
@@ -79,8 +79,6 @@ class BubblePlane {
       uBubbleColor: new THREE.Uniform(new THREE.Color(0x5b81ff)),
       uBackgroundColor: new THREE.Uniform(new THREE.Color(0x02007f)),
     }
-
-    console.log(this.uniforms)
 
     material.uniforms = this.uniforms
   }

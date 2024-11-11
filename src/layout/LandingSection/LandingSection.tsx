@@ -35,9 +35,9 @@ function LandingSection() {
     <>
       {/* top landing  */}
       <div className="flex h-screen items-end justify-center">
-        <div className="mb-10 flex flex-col items-center">
+        <div className="mb-10 flex flex-col items-center md:landscape:mb-5">
           <motion.div
-            className="mb-12 min-h-32 w-72 md:mb-8 md:min-h-44 md:w-96"
+            className="w-72 md:mb-2 lg:mb-8 lg:w-96 portrait:mb-10 portrait:w-72"
             key={theme}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}

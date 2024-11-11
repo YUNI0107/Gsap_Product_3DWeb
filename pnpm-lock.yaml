@@ -23,6 +23,9 @@ importers:
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
+      postprocessing:
+        specifier: ^6.36.4
+        version: 6.36.4(three@0.169.0)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -1379,6 +1382,11 @@ packages:
   postcss@8.4.47:
     resolution: {integrity: sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==}
     engines: {node: ^10 || ^12 || >=14}
+
+  postprocessing@6.36.4:
+    resolution: {integrity: sha512-3fAyBGuLNR7Rg/q+f2SNlsVCI5mDrymvxhOif3tPKEej8M38z4TvwzNZm+RNpRY2tACE7qQUNE5IHyMcqgvlAg==}
+    peerDependencies:
+      three: '>= 0.157.0 < 0.171.0'
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -3021,6 +3029,10 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.1.0
       source-map-js: 1.2.1
+
+  postprocessing@6.36.4(three@0.169.0):
+    dependencies:
+      three: 0.169.0
 
   prelude-ls@1.2.1: {}
 

@@ -1,8 +1,14 @@
 import * as THREE from 'three'
+import {
+  SelectiveBloomEffect,
+  EffectComposer,
+  EffectPass,
+  RenderPass,
+  BlendFunction,
+} from 'postprocessing'
 import Experience from './Experience'
 import Sizes from './utils/Sizes'
 import Camera from './Camera'
-import { RAY_MARCH_LAYER_ID } from './world/BubblePlane'
 
 class Renderer {
   experience: Experience
@@ -11,9 +17,13 @@ class Renderer {
   instance: THREE.WebGLRenderer
   scene: THREE.Scene
   camera: Camera
-  active: boolean
+  renderActive: boolean
+
+  composer: EffectComposer | null
+  bloom: SelectiveBloomEffect | null
 
   constructor() {
+    this.renderActive = false
     this.experience = new Experience()
     this.canvas = this.experience.canvas
     this.sizes = this.experience.sizes
@@ -24,10 +34,15 @@ class Renderer {
       antialias: true,
       alpha: true,
     })
-    this.active = false
-    this.setDefaultSetting()
 
-    this.experience.once('world:model-loaded', () => (this.active = true))
+    // post-processing
+    this.composer = null
+    this.bloom = null
+
+    this.setDefaultSetting()
+    this.setBloomEffect()
+
+    this.experience.once('world:model-loaded', () => (this.renderActive = true))
   }
 
   setDefaultSetting() {
@@ -43,12 +58,40 @@ class Renderer {
     this.instance.setPixelRatio(this.sizes.pixelRatio)
   }
 
-  update() {
-    if (!this.active) return
+  setBloomEffect() {
+    const composer = new EffectComposer(this.instance)
+    this.bloom = new SelectiveBloomEffect(this.scene, this.camera.instance, {
+      blendFunction: BlendFunction.ADD,
+      intensity: 3,
+      luminanceThreshold: 0.1,
+      luminanceSmoothing: 0,
+    })
 
-    this.camera.overlayCamera.layers.set(RAY_MARCH_LAYER_ID)
-    this.instance.render(this.scene, this.camera.overlayCamera)
-    this.instance.render(this.scene, this.camera.instance)
+    const bubbleRender = new RenderPass(this.scene, this.camera.overlayCamera)
+    composer.addPass(bubbleRender)
+    const mainRender = new RenderPass(this.scene, this.camera.instance)
+    mainRender.clear = false
+    composer.addPass(mainRender)
+    const bloomEffect = new EffectPass(this.camera.instance, this.bloom)
+
+    composer.addPass(bloomEffect)
+
+    this.composer = composer
+  }
+
+  handleBloomSelection(selectedObject: THREE.Object3D) {
+    if (this.bloom === null) return
+
+    const selection = this.bloom.selection
+    selection.set([selectedObject])
+  }
+
+  update() {
+    if (!this.renderActive) return
+
+    if (this.composer) {
+      this.composer.render()
+    }
   }
 }
 

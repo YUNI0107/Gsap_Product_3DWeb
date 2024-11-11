@@ -11,8 +11,19 @@ type cameraLayoutType =
   (typeof CAMERA_LAYOUT_KEY)[keyof typeof CAMERA_LAYOUT_KEY]
 
 const pivots: { [key in cameraLayoutType]: THREE.Vector3 } = {
-  [CAMERA_LAYOUT_KEY.LANDING]: new THREE.Vector3(-8, 7.5, 8),
+  [CAMERA_LAYOUT_KEY.LANDING]: new THREE.Vector3(-6, 7.5, 8),
   [CAMERA_LAYOUT_KEY.TRANSITION]: new THREE.Vector3(0, 0, 5),
+}
+
+const CAMERA_BREAKPOINT = {
+  default: Infinity,
+  tablet: 768,
+  mobile: 640,
+}
+const CAMERA_BREAKPOINT_FOV = {
+  [CAMERA_BREAKPOINT.default]: 35,
+  [CAMERA_BREAKPOINT.tablet]: 45,
+  [CAMERA_BREAKPOINT.mobile]: 50,
 }
 
 class Camera {
@@ -29,8 +40,9 @@ class Camera {
     this.scene = this.experience.scene
     this.sizes = this.experience.sizes
 
+    const fov = this.getFov()
     this.instance = new THREE.PerspectiveCamera(
-      35,
+      fov,
       this.sizes.width / this.sizes.height,
       0.1,
       100,
@@ -41,7 +53,9 @@ class Camera {
 
     this.experience.once('world:model-loaded', (model: THREE.Group) => {
       this.transformToPivot(CAMERA_LAYOUT_KEY.LANDING)
-      this.instance.lookAt(model.position)
+
+      const box = new THREE.Box3().setFromObject(model)
+      this.instance.lookAt(box.getCenter(new THREE.Vector3()))
     })
 
     this.overlayCamera = this.instance.clone()
@@ -53,10 +67,25 @@ class Camera {
     this.instance.position.copy(pivots[key])
   }
 
+  getFov() {
+    if (window.innerWidth < CAMERA_BREAKPOINT.mobile) {
+      return CAMERA_BREAKPOINT_FOV[CAMERA_BREAKPOINT.mobile]
+    } else if (window.innerWidth < CAMERA_BREAKPOINT.tablet) {
+      return CAMERA_BREAKPOINT_FOV[CAMERA_BREAKPOINT.tablet]
+    } else {
+      return CAMERA_BREAKPOINT_FOV[CAMERA_BREAKPOINT.default]
+    }
+  }
+
   resize() {
     this.instance.aspect = this.sizes.width / this.sizes.height
-    this.instance.updateProjectionMatrix()
     this.overlayCamera.aspect = this.sizes.width / this.sizes.height
+
+    const fov = this.getFov()
+    this.instance.fov = fov
+    this.overlayCamera.fov = fov
+
+    this.instance.updateProjectionMatrix()
     this.overlayCamera.updateProjectionMatrix()
   }
 

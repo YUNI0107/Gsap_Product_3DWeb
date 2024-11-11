@@ -82,7 +82,9 @@ class ProductModel {
           this.lightObject =
             this.model.getObjectByName('Nightshark_RGB_0') || null
 
-          // TODO: custom bloom shader
+          if (this.lightObject) {
+            this.renderer.handleBloomSelection(this.lightObject)
+          }
 
           resolve(this.model)
         },
