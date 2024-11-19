@@ -31,12 +31,17 @@ class World {
     }
   }
 
+  updateSection() {
+    this.computer.updateSection()
+  }
+
   resize() {
     this.bubblePlane.resize()
   }
 
   update() {
     this.bubblePlane.update()
+    this.computer.update()
   }
 }
 

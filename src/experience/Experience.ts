@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import EventEmitter from 'eventemitter3'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import Camera from './Camera'
 import Renderer from './Renderer'
 import { ThemeType } from '@constants/theme'
@@ -51,6 +51,11 @@ class Experience extends EventEmitter {
     this.world.updateTheme(theme)
   }
 
+  updateSection() {
+    this.camera.updateSection()
+    this.world.updateSection()
+  }
+
   destroy() {
     this.time.off('tick')
     this.sizes.destroy()
@@ -65,8 +70,8 @@ class Experience extends EventEmitter {
 
   update() {
     this.camera.update()
-    this.renderer.update()
     this.world.update()
+    this.renderer.update()
   }
 }
 

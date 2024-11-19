@@ -4,6 +4,9 @@ import computerModelUrl from '@assets/models/gaming-pc.glb?url'
 import { THEME_TYPE, ThemeType } from '@constants/theme'
 import Experience from '../Experience'
 import Renderer from '../Renderer'
+import useStore from '@store/useStore'
+import { SECTION_TYPE } from '@constants/section'
+import gsap from 'gsap'
 
 const themeColorMap = {
   [THEME_TYPE.BLUE]: {
@@ -31,6 +34,15 @@ class ProductModel {
   model: null | THREE.Group
   lightObject: null | THREE.Object3D
 
+  scrollRotationY: number
+  mouseRotation: {
+    x: number
+    y: number
+  }
+
+  unSubscribeScroll: () => void
+  removeMouseMoveEvent: () => void
+
   constructor() {
     this.experience = new Experience()
     this.scene = this.experience.scene
@@ -38,6 +50,22 @@ class ProductModel {
 
     this.model = null
     this.lightObject = null
+
+    this.scrollRotationY = 0
+    this.mouseRotation = {
+      x: 0,
+      y: 0,
+    }
+
+    this.removeMouseMoveEvent = this.addMouseMoveEvent()
+    this.unSubscribeScroll = useStore.subscribe(
+      (state) => state.transitionScrollY,
+      (transitionScrollY) => {
+        if (this.model) {
+          this.scrollRotationY = -Math.PI * 2 * transitionScrollY
+        }
+      },
+    )
 
     this.loadModel()
       .then((model) => {
@@ -61,6 +89,17 @@ class ProductModel {
       this.lightObject.material.emissiveIntensity =
         themeColorMap[theme].emissiveIntensity
       this.lightObject.material.needsUpdate = true
+    }
+  }
+
+  updateSection() {
+    const section = useStore.getState().section
+    if (section === SECTION_TYPE.ABOUT) {
+      gsap.to(this.mouseRotation, {
+        y: 0,
+        x: 0,
+        duration: 0.5,
+      })
     }
   }
 
@@ -88,15 +127,50 @@ class ProductModel {
 
           resolve(this.model)
         },
-        (request) => {
-          console.log((request.loaded / request.total) * 100 + '% loaded')
-        },
+        () => {},
         // called when loading has errors
         (error) => {
           reject(error)
         },
       )
     })
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const section = useStore.getState().section
+    if (section === SECTION_TYPE.ABOUT) return
+
+    const { x, y } = event
+    const width = window.innerWidth
+    const height = window.innerHeight
+    const amountX = (x / width) * 2 - 1
+    const amountY = (y / height) * 2 - 1
+
+    if (this.model) {
+      this.mouseRotation.x = amountX * 0.25
+      this.mouseRotation.y = amountY * 0.1
+    }
+  }
+
+  addMouseMoveEvent() {
+    const onMouseMove = this.onMouseMove.bind(this)
+    window.addEventListener('mousemove', onMouseMove)
+    return () => window.removeEventListener('mousemove', onMouseMove)
+  }
+
+  destroy() {
+    this.removeMouseMoveEvent()
+    this.unSubscribeScroll()
+  }
+
+  update() {
+    const combinedRotationY = this.scrollRotationY + this.mouseRotation.y
+    const combinedRotationX = this.mouseRotation.x
+
+    if (this.model) {
+      this.model.rotation.y = combinedRotationY
+      this.model.rotation.x = combinedRotationX
+    }
   }
 }
 

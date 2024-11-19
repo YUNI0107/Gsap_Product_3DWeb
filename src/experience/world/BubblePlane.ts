@@ -3,8 +3,11 @@ import Experience from '../Experience'
 import vertexShader from '../shaders/bubble/vertex.glsl'
 import fragmentShader from '../shaders/bubble/fragment.glsl'
 import { THEME_TYPE, ThemeType } from '@constants/theme'
+import useStore from '@store/useStore'
 
 export const RAY_MARCH_LAYER_ID = 1
+const MAX_SPHERES = 8
+
 const BUBBLE_COLOR_MAP = {
   [THEME_TYPE.BLUE]: {
     bubbleColor: new THREE.Color(0x4772ff),
@@ -36,8 +39,9 @@ class BubblePlane {
   lerpProgress: number
   calcVec3A: THREE.Vector3
   calcVec3B: THREE.Vector3
-  totalSpheres: number = 8
+  totalSpheres: number = MAX_SPHERES
   uniforms: { [key: string]: THREE.IUniform }
+  unSubscribeScroll: () => void
 
   constructor() {
     this.experience = new Experience()
@@ -73,14 +77,22 @@ class BubblePlane {
 
       uSpherePositions: new THREE.Uniform(spherePositions),
       uSphereRadius: new THREE.Uniform(sphereRadius),
-      uNumSpheres: new THREE.Uniform(8),
+      uNumSpheres: new THREE.Uniform(MAX_SPHERES),
 
       uLightColor: new THREE.Uniform(new THREE.Color(0xfcf9de)),
       uBubbleColor: new THREE.Uniform(new THREE.Color(0x5b81ff)),
       uBackgroundColor: new THREE.Uniform(new THREE.Color(0x02007f)),
     }
-
     material.uniforms = this.uniforms
+
+    this.unSubscribeScroll = useStore.subscribe(
+      (state) => state.transitionScrollY,
+      (transitionScrollY) => {
+        this.plane.visible = transitionScrollY <= 1
+        this.uniforms.uNumSpheres.value =
+          MAX_SPHERES - Math.floor(transitionScrollY * MAX_SPHERES)
+      },
+    )
   }
 
   createPlane() {
@@ -148,6 +160,10 @@ class BubblePlane {
       2
     const nearPlaneHeight = nearPlaneWidth / camera.aspect
     this.plane.scale.set(nearPlaneWidth, nearPlaneHeight, 1)
+  }
+
+  destroy() {
+    this.unSubscribeScroll()
   }
 
   update() {
