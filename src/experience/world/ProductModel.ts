@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import computerModelUrl from '@assets/models/gaming-pc.glb?url'
 import { THEME_TYPE, ThemeType } from '@constants/theme'
@@ -6,7 +7,6 @@ import Experience from '../Experience'
 import Renderer from '../Renderer'
 import useStore from '@store/useStore'
 import { SECTION_TYPE } from '@constants/section'
-import gsap from 'gsap'
 
 const themeColorMap = {
   [THEME_TYPE.BLUE]: {

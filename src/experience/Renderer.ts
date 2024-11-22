@@ -56,6 +56,9 @@ class Renderer {
   resize() {
     this.instance.setSize(this.sizes.width, this.sizes.height)
     this.instance.setPixelRatio(this.sizes.pixelRatio)
+    if (this.composer) {
+      this.composer.setSize(this.sizes.width, this.sizes.height)
+    }
   }
 
   setBloomEffect() {
@@ -73,7 +76,6 @@ class Renderer {
     mainRender.clear = false
     composer.addPass(mainRender)
     const bloomEffect = new EffectPass(this.camera.instance, this.bloom)
-
     composer.addPass(bloomEffect)
 
     this.composer = composer

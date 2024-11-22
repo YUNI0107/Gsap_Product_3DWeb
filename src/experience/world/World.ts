@@ -1,10 +1,11 @@
 import * as THREE from 'three'
 
+import { ThemeType } from '@constants/theme'
 import Experience from '../Experience'
 import Environment from './Environment'
 import ProductModel from './ProductModel'
-import { ThemeType } from '@constants/theme'
 import BubblePlane from './BubblePlane'
+import Sparks from './Sparks'
 
 class World {
   experience: Experience
@@ -12,6 +13,7 @@ class World {
   computer: ProductModel
   environment: Environment
   bubblePlane: BubblePlane
+  sparks: Sparks
 
   constructor() {
     this.experience = new Experience()
@@ -22,13 +24,13 @@ class World {
 
     this.computer = new ProductModel()
     this.bubblePlane = new BubblePlane()
+    this.sparks = new Sparks()
   }
 
   updateTheme(theme: ThemeType) {
     this.bubblePlane.changeColor(theme)
-    if (this.computer.model) {
-      this.computer.changeColor(theme)
-    }
+    this.computer.changeColor(theme)
+    this.sparks.changeColor(theme)
   }
 
   updateSection() {
