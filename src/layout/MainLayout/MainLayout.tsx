@@ -1,6 +1,6 @@
 import ContactSection from '../ContactSection'
 import IntroductionSection from '../IntroductionSection'
-import AboveSection from '../AboutSection'
+import AboutSection from '../AboutSection'
 import LandingSection from '../LandingSection'
 import BackgroundLayout from '../BackgroundLayout'
 import Scene from '../Scene'
@@ -11,9 +11,9 @@ function MainLayout() {
       {/* section: landing & about (with canvas) */}
       <div className="min-w-screen relative h-full">
         {/*  pointer-events-none only on landing section */}
-        <div className="pointer-events-none absolute left-0 top-0 z-30 w-full px-5">
+        <div className="pointer-events-none absolute left-0 top-0 z-30 w-full">
           <LandingSection />
-          <AboveSection />
+          <AboutSection />
         </div>
 
         {/* canvas */}

@@ -8,6 +8,7 @@ export default {
       pink: 'var(--color-pink)',
       white: '#ffff',
       gray: '#F5F5F5',
+      charcoal: '#383838',
       black: '#080808',
       transparent: 'rgba(0, 0, 0, 0)',
     },

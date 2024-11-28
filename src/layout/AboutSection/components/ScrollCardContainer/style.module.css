@@ -1,0 +1,24 @@
+/* Create Crazy 3D Image Slider Effects
+Reference: https://www.youtube.com/watch?v=yqaLSlPOUxM&list=WL&index=11 */
+
+.scroll-slider {
+  transform-style: preserve-3d;
+  animation: autoRun 20s linear infinite;
+  perspective-origin: center;
+}
+
+.scroll-item {
+  position: absolute;
+  inset: 0 0 0 0;
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+.scroll-item.front {
+  transform: rotateY(calc((var(--position)) * (360 / var(--quantity)) * 1deg))
+    translateZ(700px);
+}
+.scroll-item.back  {
+  transform: rotateY(calc((var(--position)) * (360 / var(--quantity)) * 1deg))
+    translateZ(700px) rotateY(180deg);
+}

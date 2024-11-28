@@ -34,7 +34,7 @@ function LandingSection() {
   return (
     <>
       {/* top landing  */}
-      <div className="flex h-screen items-end justify-center">
+      <div className="flex h-screen items-end justify-center px-5">
         <div className="mb-10 flex flex-col items-center md:landscape:mb-5">
           <motion.div
             className="w-72 md:mb-2 lg:mb-8 lg:w-96 portrait:mb-10 portrait:w-72"
@@ -73,7 +73,7 @@ function LandingSection() {
       </div>
 
       {/* rotate transition  */}
-      <div className="h-[200vh]"></div>
+      <div className="h-[150vh]"></div>
     </>
   )
 }

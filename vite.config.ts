@@ -20,6 +20,11 @@ export default defineConfig({
       include: '**/*.svg?react',
     }),
   ],
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
   resolve: {
     alias: {
       '@assets': path.resolve(__dirname, './src/assets'),
