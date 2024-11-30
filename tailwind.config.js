@@ -24,6 +24,9 @@ export default {
         green: '5px 5px 20px rgba(44, 242, 207, 0.80)',
         pink: '5px 5px 20px rgba(249, 58, 252, 0.80)',
       },
+      fontFamily: {
+        amiko: ['Amiko', 'sans-serif'],
+      },
     },
   },
   plugins: [],

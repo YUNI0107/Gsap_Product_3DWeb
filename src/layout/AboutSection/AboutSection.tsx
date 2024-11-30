@@ -51,7 +51,7 @@ function AboutSection() {
       <div className="relative h-full w-full">
         <div className="absolute left-0 top-0 w-full">
           <div className="hello flex h-[100vh] w-full flex-col items-center justify-center px-5">
-            <h1 className="to-charcoal mb-4 bg-gradient-to-b from-white bg-clip-text text-5xl font-extrabold text-transparent md:text-7xl">
+            <h1 className="font-amiko mb-4 bg-gradient-to-b from-white to-charcoal bg-clip-text text-5xl font-extrabold text-transparent md:text-7xl">
               About Sokuseki-ki
             </h1>
             <h3 className="text-center text-secondary">
