@@ -1,8 +1,6 @@
 import { cn } from '@utils/style'
 import styles from '../ScrollCardContainer/style.module.css'
 
-console.log(styles)
-
 function AboutCard({
   children,
   icon,

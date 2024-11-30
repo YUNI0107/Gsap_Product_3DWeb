@@ -147,8 +147,8 @@ class ProductModel {
     const amountY = (y / height) * 2 - 1
 
     if (this.model) {
-      this.mouseRotation.x = amountX * 0.25
-      this.mouseRotation.y = amountY * 0.1
+      this.mouseRotation.x = amountY * 0.25
+      this.mouseRotation.y = amountX * 0.1
     }
   }
 
