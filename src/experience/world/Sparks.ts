@@ -21,7 +21,7 @@ class Sparks {
   constructor() {
     this.experience = new Experience()
     this.sizes = this.experience.sizes
-    this.color = new THREE.Color(0x00ff00)
+    this.color = new THREE.Color(0x7792ff)
 
     this.createSparks()
   }
